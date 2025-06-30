@@ -25,6 +25,8 @@
 typedef	enum{
 	SOC_I2C_TASK_PNO,
 	SOC_SPI_TASK_PNO,
+	BSP_SSR_START_PNO,
+	BSP_SSR_END_PNO = BSP_SSR_START_PNO+8,
 }TOS_ALL_PNO;
 /*================================================================*/
 #endif
