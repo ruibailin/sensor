@@ -1,0 +1,1 @@
+Suppose GPIO used as chip selection

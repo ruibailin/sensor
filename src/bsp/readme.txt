@@ -1,0 +1,1 @@
+If OMMO has several versions of sensor board, BSP layer should hide all the difference to App lavel
