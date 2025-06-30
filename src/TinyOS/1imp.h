@@ -8,8 +8,9 @@
 #ifndef TOS_1IMP_H_
 #define TOS_1IMP_H_
 /*================================================================*/
+#include "..\tos.h"
 #define	TOS_MAX_PAT_TYPE	2
-#define	TOS_MAX_PAT_NUM		8
+#define	TOS_MAX_PAT_NUM		TOS_MAX_PNO
 /*------------------------------------*/
 #include <stdio.h>
 #include "0ctr.h"

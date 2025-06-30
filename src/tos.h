@@ -27,6 +27,7 @@ typedef	enum{
 	SOC_SPI_TASK_PNO,
 	BSP_SSR_START_PNO,
 	BSP_SSR_END_PNO = BSP_SSR_START_PNO+8,
+	TOS_MAX_PNO
 }TOS_ALL_PNO;
 /*================================================================*/
 #endif
