@@ -58,6 +58,8 @@ bool hal_dma_finish_tx_i2c_device(void);
 bool hal_dma_finish_tx_i2c_device()
 {
 	i2c_print("I2C finish send %d bytes to device %02x\r\n",i2c_tx_len,i2c_tx_addr);
+	void rbl_log_hex(unsigned char *data, int size);
+	rbl_log_hex(i2c_tx_data, i2c_tx_len);
 	i2c_tx_len = 0;
 	return true;	//success
 }

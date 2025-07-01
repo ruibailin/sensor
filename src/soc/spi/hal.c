@@ -52,6 +52,8 @@ bool hal_dma_finish_tx_spi_device(void);
 bool hal_dma_finish_tx_spi_device()
 {
 	spi_print("SPI finish send %d bytes to device\r\n",spi_tx_len);
+	void rbl_log_hex(unsigned char *data, int size);
+	rbl_log_hex(spi_tx_data, spi_tx_len);
 	spi_tx_len = 0;
 	return true;	//success
 }
