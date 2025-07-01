@@ -93,6 +93,7 @@ void soc_spi_int_thread()
 		if(soc_spi_tx_len == 0)
 			break;			//should not happen
 		soc_spi_tx_len = 0;	//transmission finished
+		hal_dma_finish_tx_spi_device();
 	}
 		break;
 	case SPI_RX_STATE:

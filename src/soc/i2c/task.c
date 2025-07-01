@@ -94,6 +94,7 @@ void soc_i2c_int_thread()
 		if(soc_i2c_tx_len == 0)
 			break;			//should not happen
 		soc_i2c_tx_len = 0;	//transmission finished
+		hal_dma_finish_tx_i2c_device();
 	}
 		break;
 	case I2C_RX_STATE:
