@@ -29,6 +29,8 @@ extern void start_timer(void);
 extern void sys_init_test_thread(void);
 extern void sys_print_usage();
 extern void sys_parse_input(char cmd);
+unsigned int speedup=1;
+unsigned int speeddown=1;
 /*------------------------------------*/
 int main(int argc, char **argv)
 {
@@ -43,6 +45,8 @@ int main(int argc, char **argv)
 	{
 		cc = getchar();
 		cmd = (char )cc;
+		if(cmd == 'q')
+			break;
 		sys_parse_input(cmd);
 	}
 	return EXIT_SUCCESS;

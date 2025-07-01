@@ -27,43 +27,34 @@ extern void TIMER_ISR(void);
 extern void I2C_ISR(bool success);
 extern void SPI_ISR(void);
 /*------------------------------------*/
-int timer_run_enable=0;
 void *TIMER_ISR_pthread_entry(void *arg);
 void *TIMER_ISR_pthread_entry(void *arg)
 {
 	while(1)
 	{
 		usleep(100000);		//delay 100ms
-		if(timer_run_enable == 1)
-			continue;
 		TIMER_ISR();
 	}
 	return 0x0L;
 }
 
-int i2c_run_enable=0;
 void *I2C_ISR_pthread_entry(void *arg);
 void *I2C_ISR_pthread_entry(void *arg)
 {
 	while(1)
 	{
 		usleep(100);		//delay 100us
-		if(i2c_run_enable == 1)
-			continue;
 		I2C_ISR(true);
 	}
 	return 0x0L;
 }
 
-int spi_run_enable=0;
 void *SPI_ISR_pthread_entry(void *arg);
 void *SPI_ISR_pthread_entry(void *arg)
 {
 	while(1)
 	{
 		usleep(100);		//delay 100us
-		if(spi_run_enable == 1)
-			continue;
 		SPI_ISR();
 	}
 	return 0x0L;
@@ -73,7 +64,7 @@ void sys_init_test_thread(void);
 void sys_init_test_thread()
 {
 	TIMER_ISR();
-	I2C_ISR();
+	I2C_ISR(true);
 	SPI_ISR();
 
 	pthread_t tid;
