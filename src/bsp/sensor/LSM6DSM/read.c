@@ -1,7 +1,7 @@
 
 /*------------------------------------
- * 0ctr.h
- * Create:  2025-06-29
+ * read.c
+ * Create:  2025-06-30
  * Author:  Steve Rui
  *------------------------------------
  * Record:
@@ -13,13 +13,14 @@
  */
 
 
-
-#ifndef BSP_SENSOR_0CTR_H_
-#define BSP_SENSOR_0CTR_H_
 /*================================================================*/
-#define	OMMO_DEBUG_SENSOR	1
+#include <stdio.h>
+void start_LSM6DSM_data_read(uint8_t chip_select, uint8_t *buffer);
+void start_LSM6DSM_data_read(uint8_t chip_select, uint8_t *buffer)
+{
+	printf("Start to Read LSM6DSM data/r/n");
+}
 /*------------------------------------*/
-#define	OMMO_MOCK_SENSOR	0
+
 /*================================================================*/
-#endif
-/* end of 0ctr.h */
+/* end of read.c */

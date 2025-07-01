@@ -27,9 +27,11 @@ typedef struct{
 }BSP_Sensor_Model_t;
 /*------------------------------------*/
 typedef struct{
-	BSP_Sensor_Vendor_t *vendor;
-	BSP_Sensor_Model_t *model;
+	BSP_Sensor_Vendor_t vendor;
+	BSP_Sensor_Model_t model;
 }BSP_Sensor_Descrip_t;
+/*------------------------------------*/
+extern BSP_Sensor_Descrip_t bsp_sensor_discrip_table[BSP_MAX_SENSOR_MODEL];
 /*================================================================*/
 #endif
 /* end of description.h */

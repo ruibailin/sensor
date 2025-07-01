@@ -93,6 +93,8 @@ void *mrb_pop_msg(MRB *mrb)
 		return 0x0L;	//should not happen
 	if(mrb->messege == 0x0L)
 		return 0x0L; //should not happen
+	if(mrb->tail==mrb->head)
+		return 0x0L; //no new message
 	void *msg;
 	msg = mrb->messege[mrb->tail];
 	mrb_inc_tail(mrb);
