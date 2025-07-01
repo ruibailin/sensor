@@ -137,7 +137,7 @@ void soc_spi_loop_thread()
 	{
 		if(soc_spi_tx_len!=0)
 		{
-#if SYS_USE_SYS_HAL
+#if SPI_USE_SYS_HAL
 			extern uint8_t soc_spi_cs;
 extern void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *rx_data, uint8_t length);
 			start_spi_transfer(soc_spi_cs, soc_spi_tx_data, 0x0L, soc_spi_tx_len);
