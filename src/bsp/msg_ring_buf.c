@@ -26,9 +26,11 @@ void mrb_record(MRB *mrb)
 	int i;
 	for(i=0;i<MAX_MRB_NUM;i++)
 	{
-		if(mrb_table!=0x0L)
+		if(mrb_table[i]!=0x0L)
 			continue;
 		mrb_table[i] = mrb;
+		mrb_print("MRB %d applied\r\n",i);
+		return;
 	}
 	mrb_print("Too many MRB\r\n");
 }

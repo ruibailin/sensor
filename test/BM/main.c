@@ -43,7 +43,7 @@ int main(void)
 		sys_loop++;
 		I2C_ISR(true);
 		SPI_ISR();
-		if(sys_loop<80000)
+		if(sys_loop<800000)
 			continue;
 		sys_loop=0;
 		sys_ticks++;
