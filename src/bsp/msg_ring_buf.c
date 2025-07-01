@@ -15,7 +15,7 @@
 #include "msg_ring_buf.h"
 /*================================================================*/
 #include "0ctr.h"
-#if OMMO_DEBUG_MRB
+#if SYS_DEBUG_MRB
 #define MAX_MRB_NUM	16
 #include <stdio.h>
 MRB *mrb_table[MAX_MRB_NUM];

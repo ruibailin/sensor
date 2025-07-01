@@ -19,11 +19,11 @@
 void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *rx_data, uint8_t length);
 void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *rx_data, uint8_t length)
 {
-#if OMMO_DEBUG_SPI
+#if SYS_DEBUG_SPI
 	printf("OMMO HAL SPI Transfer CS:%d,Length:%d/r/n",chip_select,length);
 #endif
 
-#if OMMO_MOCK_SPI
+#if SYS_MOCK_SPI
 #include <string.h>
 	static uint8_t spi_rx_data[16]={1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 	if(rx_data!=0x0L)

@@ -125,7 +125,7 @@ void soc_i2c_loop_thread()
 	{
 		if(soc_i2c_tx_len!=0)
 		{
-#if I2C_USE_OMMO_HAL
+#if I2C_USE_SYS_HAL
 extern void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_data, uint8_t length);
 			start_i2c_transfer(soc_i2c_tx_addr, soc_i2c_tx_data, 0x0L, soc_i2c_tx_len);
 #else
@@ -137,7 +137,7 @@ extern void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_da
 		}
 		if(soc_i2c_cmd_len!=0)
 		{
-#if I2C_USE_OMMO_HAL
+#if I2C_USE_SYS_HAL
 extern void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_data, uint8_t length);
 			start_i2c_transfer(soc_i2c_rx_addr, soc_i2c_cmd_data, soc_i2c_rx_data, soc_i2c_cmd_len);
 #else

@@ -15,7 +15,7 @@
 #include "1imp.h"
 /*================================================================*/
 #include "0ctr.h"
-#if OMMO_DEBUG_GPIO
+#if SYS_DEBUG_GPIO
 #define gpio_print(x...)	printf(x)
 #else
 #define gpio_print(x...)

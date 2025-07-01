@@ -15,7 +15,7 @@
 #include "1imp.h"
 /*================================================================*/
 #include "0ctr.h"
-#if OMMO_DEBUG_SENSOR
+#if SYS_DEBUG_SENSOR
 #define bsp_i2c_print(x...)	printf(x)
 #else
 #define bsp_i2c_print(x...)

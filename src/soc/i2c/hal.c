@@ -18,7 +18,7 @@
 #include "1imp.h"
 /*================================================================*/
 #include "0ctr.h"
-#if OMMO_DEBUG_I2C
+#if SYS_DEBUG_I2C
 #define i2c_print(x...)	printf(x)
 #else
 #define i2c_print(x...)
@@ -76,7 +76,7 @@ bool hal_dma_start_rx_i2c_device(uint8_t address, uint8_t *cmd_data, uint8_t cmd
 bool hal_dma_finish_rx_i2c_device(void);
 bool hal_dma_finish_rx_i2c_device()
 {
-#if	OMMO_MOCK_I2C
+#if	SYS_MOCK_I2C
 	i2c_rx_len = 16;
 	uint8_t i;
 	for(i=0;i<i2c_rx_len;i++)

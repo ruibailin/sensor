@@ -17,10 +17,10 @@
 #ifndef SOC_I2C_0CTR_H_
 #define SOC_I2C_0CTR_H_
 /*================================================================*/
-#define OMMO_DEBUG_I2C		1
-#define OMMO_MOCK_I2C		1
+#define SYS_DEBUG_I2C		1
+#define SYS_MOCK_I2C		1
 /*------------------------------------*/
-#define I2C_USE_OMMO_HAL	1
+#define I2C_USE_SYS_HAL	1
 /*================================================================*/
 #endif
 /* end of 0ctr.h */

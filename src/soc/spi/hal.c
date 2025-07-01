@@ -15,7 +15,7 @@
 #include "1imp.h"
 /*================================================================*/
 #include "0ctr.h"
-#if OMMO_DEBUG_SPI
+#if SYS_DEBUG_SPI
 #define spi_print(x...)	printf(x);
 #else
 #define spi_print(x...)
@@ -69,7 +69,7 @@ bool hal_dma_start_rx_spi_device(uint8_t *cmd_data, uint8_t cmd_len)
 bool hal_dma_finish_rx_spi_device(void);
 bool hal_dma_finish_rx_spi_device()
 {
-#if	OMMO_MOCK_SPI
+#if	SYS_MOCK_SPI
 	spi_rx_len = 16;
 	uint8_t i;
 	for(i=0;i<spi_rx_len;i++)

@@ -17,9 +17,9 @@
 #ifndef BSP_SENSOR_0CTR_H_
 #define BSP_SENSOR_0CTR_H_
 /*================================================================*/
-#define	OMMO_DEBUG_SENSOR	1
+#define	SYS_DEBUG_SENSOR	1
 /*------------------------------------*/
-#define	OMMO_MOCK_SENSOR	0
+#define	SYS_MOCK_SENSOR	0
 /*================================================================*/
 #endif
 /* end of 0ctr.h */

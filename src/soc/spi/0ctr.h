@@ -17,10 +17,10 @@
 #ifndef SOC_SPI_0CTR_H_
 #define SOC_SPI_0CTR_H_
 /*================================================================*/
-#define OMMO_DEBUG_SPI		1
-#define OMMO_MOCK_SPI		1
+#define SYS_DEBUG_SPI		1
+#define SYS_MOCK_SPI		1
 /*------------------------------------*/
-#define SPI_USE_OMMO_HAL	1
+#define SPI_USE_SYS_HAL	1
 /*================================================================*/
 #endif
 /* end of 0ctr.h */
