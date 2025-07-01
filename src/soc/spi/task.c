@@ -36,11 +36,13 @@ void soc_spi_request_tx(uint8_t address,uint8_t *tx_data, uint8_t tx_len)
 	soc_spi_tx_len = tx_len;
 	soc_spi_tx_data = tx_data;
 }
-void soc_spi_request_rx(uint8_t address,uint8_t *cmd_data, uint8_t cmd_len);
-void soc_spi_request_rx(uint8_t address,uint8_t *cmd_data, uint8_t cmd_len)
+void soc_spi_request_rx(uint8_t address,uint8_t *cmd_data,uint8_t *rx_data, uint8_t cmd_len);
+void soc_spi_request_rx(uint8_t address,uint8_t *cmd_data,uint8_t *rx_data, uint8_t cmd_len)
 {
 	soc_spi_cmd_len = cmd_len;
 	soc_spi_cmd_data = cmd_data;
+	soc_spi_rx_len = cmd_len;
+	soc_spi_rx_data = rx_data;
 }
 
 bool soc_spi_is_rx_full(void);
@@ -110,7 +112,7 @@ void soc_spi_int_thread()
 void soc_spi_loop_thread();
 void soc_spi_loop_thread()
 {
-	tos_set_pno(SOC_I2C_TASK_PNO);
+	tos_set_pno(SOC_SPI_TASK_PNO);
 	int ss;
 	ss = tos_get_state();
 	switch(ss)

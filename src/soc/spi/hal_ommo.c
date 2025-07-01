@@ -14,23 +14,14 @@
 
 #include "1imp.h"
 /*================================================================*/
-#include "0ctr.h"
+#include "hal.h"
 //remark: in current design, chip_select is managed by BSP level,SOC no need to worry about it.
 void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *rx_data, uint8_t length);
 void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *rx_data, uint8_t length)
 {
-#if SYS_DEBUG_SPI
-	printf("OMMO HAL SPI Transfer CS:%d,Length:%d/r/n",chip_select,length);
-#endif
-
-#if SYS_MOCK_SPI
-#include <string.h>
-	extern int spi_isr_enable;
-	spi_isr_enable = 1;
-	static uint8_t spi_rx_data[16]={1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-	if(rx_data!=0x0L)
-		memcpy(rx_data,spi_rx_data,16);
-#endif
+	 hal_dma_start_tx_spi_device(tx_data, length);
+	 hal_dma_start_rx_spi_device(tx_data, rx_data, length);
+	 hal_dma_finish_rx_spi_device();
 }
 /*------------------------------------*/
 

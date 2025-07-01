@@ -21,7 +21,7 @@
 extern bool soc_spi_is_tx_idle(void);
 extern void soc_spi_request_tx(uint8_t address,uint8_t *tx_data, uint8_t tx_len);
 /*------------------------------------*/
-extern void soc_spi_request_rx(uint8_t address,uint8_t *cmd_data, uint8_t cmd_len);
+extern void soc_spi_request_rx(uint8_t address,uint8_t *cmd_data,uint8_t *rx_data, uint8_t cmd_len);
 extern bool soc_spi_is_rx_full(void);
 extern uint8_t soc_spi_copy_rx_data(uint8_t *rx_data);
 /*------------------------------------*/

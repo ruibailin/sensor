@@ -36,11 +36,13 @@ void soc_i2c_request_tx(uint8_t address,uint8_t *tx_data, uint8_t tx_len)
 	soc_i2c_tx_data = tx_data;
 	soc_i2c_tx_addr = address;
 }
-void soc_i2c_request_rx(uint8_t address,uint8_t *cmd_data, uint8_t cmd_len);
-void soc_i2c_request_rx(uint8_t address,uint8_t *cmd_data, uint8_t cmd_len)
+void soc_i2c_request_rx(uint8_t address,uint8_t *cmd_data,uint8_t *rx_data, uint8_t cmd_len);
+void soc_i2c_request_rx(uint8_t address,uint8_t *cmd_data,uint8_t *rx_data, uint8_t cmd_len)
 {
 	soc_i2c_cmd_len = cmd_len;
 	soc_i2c_cmd_data = cmd_data;
+	soc_i2c_rx_len = cmd_len;
+	soc_i2c_rx_data = rx_data;
 	soc_i2c_rx_addr = address;
 }
 

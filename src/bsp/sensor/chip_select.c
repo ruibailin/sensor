@@ -15,7 +15,7 @@
 #include "1imp.h"
 /*================================================================*/
 static uint8_t bsp_valid_cs[4]={1,2,4,8};
-static uint8_t bsp_current_cs=0;
+uint8_t bsp_current_cs=0;
 /*------------------------------------*/
 uint8_t bsp_get_cs(void);
 uint8_t bsp_get_cs()

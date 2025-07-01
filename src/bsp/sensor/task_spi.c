@@ -56,7 +56,7 @@ void bsp_spi_loop_thread()
 			tos_set_timer(BSP_WAIT_SENSOR_MAX_TIME);
 			soc_spi_request_tx(bsp_sensor_config_table[port].addr_or_cs,cmd,16);
 			tos_set_state(BSP_SSR_ONLINE_WRITE);
-			bsp_spi_print("SPI Sensor %d Start Write/r/n",port);
+			bsp_spi_print("SPI Sensor %d Start Write\r\n",port);
 		}
 		else
 		{
@@ -72,9 +72,9 @@ void bsp_spi_loop_thread()
 			}
 
 			tos_set_timer(BSP_WAIT_SENSOR_MAX_TIME);
-			soc_spi_request_rx(bsp_sensor_config_table[port].addr_or_cs,bsp_sensor_config_table[port].data_area,16);
+			soc_spi_request_rx(bsp_sensor_config_table[port].addr_or_cs,bsp_sensor_config_table[port].data_area,bsp_sensor_config_table[port].data_area,16);
 			tos_set_state(BSP_SSR_ONLINE_READ);
-			bsp_spi_print("SPI Sensor %d Start Read/r/n",port);
+			bsp_spi_print("SPI Sensor %d Start Read\r\n",port);
 		}
 	}
 		break;
@@ -86,7 +86,7 @@ void bsp_spi_loop_thread()
 			data_read_callback(port,bsp_sensor_config_table[port].data_area);
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
-			bsp_spi_print("SPI Sensor %d End Read/r/n",port);
+			bsp_spi_print("SPI Sensor %d End Read\r\n",port);
 		}
 		else
 		{
@@ -94,7 +94,7 @@ void bsp_spi_loop_thread()
 				break;
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_OFFLINE);
-			bsp_spi_print("SPI Sensor %d OFFLINE/r/n",port);
+			bsp_spi_print("SPI Sensor %d OFFLINE\r\n",port);
 			device_inserted_removed_callback(port,false);
 			break;
 		}
@@ -106,7 +106,7 @@ void bsp_spi_loop_thread()
 		{	//Transmission finished
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
-			bsp_spi_print("SPI Sensor %d End Write/r/n",port);
+			bsp_spi_print("SPI Sensor %d End Write\r\n",port);
 		}
 		else
 		{
@@ -114,7 +114,7 @@ void bsp_spi_loop_thread()
 				break;
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_OFFLINE);
-			bsp_spi_print("SPI Sensor %d OFFLINE/r/n",port);
+			bsp_spi_print("SPI Sensor %d OFFLINE\r\n",port);
 			device_inserted_removed_callback(port,false);
 			break;
 		}
@@ -133,7 +133,7 @@ void bsp_spi_loop_thread()
 			start_LSM6DSM_data_read(cs,bsp_sensor_config_table[port].data_area);
 		}
 		tos_set_timer(BSP_WAIT_SENSOR_MAX_TIME);
-		soc_spi_request_rx(bsp_sensor_config_table[port].addr_or_cs,bsp_sensor_config_table[port].data_area,16);
+		soc_spi_request_rx(bsp_sensor_config_table[port].addr_or_cs,bsp_sensor_config_table[port].data_area,bsp_sensor_config_table[port].data_area,16);
 		tos_set_state(BSP_SSR_ONLINE_READ);
 	}
 		break;
@@ -143,7 +143,7 @@ void bsp_spi_loop_thread()
 		{
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
-			bsp_spi_print("SPI Sensor %d ONLINE again/r/n",port);
+			bsp_spi_print("SPI Sensor %d ONLINE again\r\n",port);
 			device_inserted_removed_callback(port,true);
 		}
 		else

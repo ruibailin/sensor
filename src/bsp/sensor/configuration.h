@@ -18,7 +18,8 @@
 #define BSP_SENSOR_CONFIGURATION_H_
 /*================================================================*/
 typedef enum{
-	BSP_I2C_SENSOR = 0,
+	BSP_NULL_SENSOR = 0,
+	BSP_I2C_SENSOR,
 	BSP_SPI_SENSOR
 }BSP_Sensor_Connect_Enum;
 /*------------------------------------*/

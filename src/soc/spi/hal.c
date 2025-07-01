@@ -56,8 +56,8 @@ bool hal_dma_finish_tx_spi_device()
 	return true;	//success
 }
 /*------------------------------------*/
-bool hal_dma_start_rx_spi_device(uint8_t *cmd_data, uint8_t cmd_len);
-bool hal_dma_start_rx_spi_device(uint8_t *cmd_data, uint8_t cmd_len)
+bool hal_dma_start_rx_spi_device(uint8_t *cmd_data,uint8_t *rx_data, uint8_t cmd_len);
+bool hal_dma_start_rx_spi_device(uint8_t *cmd_data,uint8_t *rx_data, uint8_t cmd_len)
 {
 	spi_cmd_len = cmd_len;
 	memcpy(spi_cmd_data,cmd_data,cmd_len);
@@ -70,10 +70,19 @@ bool hal_dma_finish_rx_spi_device(void);
 bool hal_dma_finish_rx_spi_device()
 {
 #if	SYS_MOCK_SPI
-	spi_rx_len = 16;
-	uint8_t i;
-	for(i=0;i<spi_rx_len;i++)
-		spi_rx_data[i] = i+1;
+	static char *rx_msg[4]={
+			"MMC5983 SPI Sensor Data",
+			"Null",
+			"LSM6DSM SPI Sensor Data",
+			"Null"
+	};
+	extern uint8_t bsp_current_cs;
+#include <string.h>
+	spi_rx_len = strlen(rx_msg[bsp_current_cs]);
+	strcpy((char *)spi_rx_data,rx_msg[bsp_current_cs]);
+
+	extern int spi_isr_enable;
+	spi_isr_enable = 1;
 #endif
 	spi_print("SPI finish to read %d bytes from devicex\r\n",spi_rx_len);
 	return true;	//success

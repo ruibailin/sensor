@@ -19,7 +19,7 @@
 void start_MMC5603_data_read(uint8_t *buffer);
 void start_MMC5603_data_read(uint8_t *buffer)
 {
-	printf("Start to Read MMC5603 data/r/n");
+	printf("Start to Read MMC5603 data\r\n");
 }
 /*================================================================*/
 /* end of read.c */

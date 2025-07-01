@@ -43,15 +43,12 @@ int main(void)
 		sys_loop++;
 		I2C_ISR(true);
 		SPI_ISR();
-
-		extern void bsp_loop_thread(void);
-		bsp_loop_thread();
 		if(sys_loop<80000)
 			continue;
 		sys_loop=0;
 		sys_ticks++;
 		sys_ms++;
-		if(sys_loop<100)
+		if(sys_ms<100)
 			continue;
 		sys_ms=0;
 		TIMER_ISR();

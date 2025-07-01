@@ -24,6 +24,8 @@ void TIMER_ISR()
 {
 	if(timer_isr_enable == 0)
 		return;
+	extern void bsp_loop_thread(void);
+	bsp_loop_thread();
 	extern void soc_i2c_loop_thread();
 	soc_i2c_loop_thread();
 	extern void soc_spi_loop_thread();

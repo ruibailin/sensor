@@ -54,16 +54,16 @@ void bsp_i2c_loop_thread()
 			tos_set_timer(BSP_WAIT_SENSOR_MAX_TIME);
 			soc_i2c_request_tx(bsp_sensor_config_table[0].addr_or_cs,cmd,16);
 			tos_set_state(BSP_SSR_ONLINE_WRITE);
-			bsp_i2c_print("I2C Sensor %d Start Write/r/n",addr);
+			bsp_i2c_print("I2C Sensor %d Start Write\r\n",addr);
 		}
 		else
 		{
 			extern void start_MMC5603_data_read(uint8_t *buffer);
 			start_MMC5603_data_read(bsp_sensor_config_table[0].data_area);
 			tos_set_timer(BSP_WAIT_SENSOR_MAX_TIME);
-			soc_i2c_request_rx(bsp_sensor_config_table[0].addr_or_cs,bsp_sensor_config_table[0].data_area,16);
+			soc_i2c_request_rx(bsp_sensor_config_table[0].addr_or_cs,bsp_sensor_config_table[0].data_area,bsp_sensor_config_table[0].data_area,16);
 			tos_set_state(BSP_SSR_ONLINE_READ);
-			bsp_i2c_print("I2C Sensor %d Start Read/r/n",addr);
+			bsp_i2c_print("I2C Sensor %d Start Read\r\n",addr);
 		}
 	}
 		break;
@@ -75,7 +75,7 @@ void bsp_i2c_loop_thread()
 			data_read_callback(0,bsp_sensor_config_table[0].data_area);
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
-			bsp_i2c_print("I2C Sensor %d End Read/r/n",addr);
+			bsp_i2c_print("I2C Sensor %d End Read\r\n",addr);
 		}
 		else
 		{
@@ -83,7 +83,7 @@ void bsp_i2c_loop_thread()
 				break;
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_OFFLINE);
-			bsp_i2c_print("I2C Sensor %d OFFLINE/r/n",addr);
+			bsp_i2c_print("I2C Sensor %d OFFLINE\r\n",addr);
 			device_inserted_removed_callback(0,false);
 			break;
 		}
@@ -95,7 +95,7 @@ void bsp_i2c_loop_thread()
 		{	//Transmission finished
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
-			bsp_i2c_print("I2C Sensor %d End Write/r/n",addr);
+			bsp_i2c_print("I2C Sensor %d End Write\r\n",addr);
 		}
 		else
 		{
@@ -103,7 +103,7 @@ void bsp_i2c_loop_thread()
 				break;
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_OFFLINE);
-			bsp_i2c_print("I2C Sensor %d OFFLINE/r/n",addr);
+			bsp_i2c_print("I2C Sensor %d OFFLINE\r\n",addr);
 			device_inserted_removed_callback(0,false);
 			break;
 		}
@@ -114,7 +114,7 @@ void bsp_i2c_loop_thread()
 		extern void start_MMC5603_data_read(uint8_t *buffer);
 		start_MMC5603_data_read(bsp_sensor_config_table[0].data_area);
 		tos_set_timer(BSP_WAIT_SENSOR_MAX_TIME);
-		soc_i2c_request_rx(bsp_sensor_config_table[0].addr_or_cs,bsp_sensor_config_table[0].data_area,16);
+		soc_i2c_request_rx(bsp_sensor_config_table[0].addr_or_cs,bsp_sensor_config_table[0].data_area,bsp_sensor_config_table[0].data_area,16);
 		tos_set_state(BSP_SSR_ONLINE_READ);
 	}
 		break;
@@ -124,7 +124,7 @@ void bsp_i2c_loop_thread()
 		{
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
-			bsp_i2c_print("I2C Sensor %d ONLINE again/r/n",addr);
+			bsp_i2c_print("I2C Sensor %d ONLINE again\r\n",addr);
 			device_inserted_removed_callback(0,true);
 		}
 		else

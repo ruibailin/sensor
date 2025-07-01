@@ -62,8 +62,8 @@ bool hal_dma_finish_tx_i2c_device()
 	return true;	//success
 }
 /*------------------------------------*/
-bool hal_dma_start_rx_i2c_device(uint8_t address, uint8_t *cmd_data, uint8_t cmd_len);
-bool hal_dma_start_rx_i2c_device(uint8_t address, uint8_t *cmd_data, uint8_t cmd_len)
+bool hal_dma_start_rx_i2c_device(uint8_t address, uint8_t *cmd_data,uint8_t *rx_data, uint8_t cmd_len);
+bool hal_dma_start_rx_i2c_device(uint8_t address, uint8_t *cmd_data,uint8_t *rx_data, uint8_t cmd_len)
 {
 	i2c_cmd_len = cmd_len;
 	memcpy(i2c_cmd_data,cmd_data,cmd_len);
@@ -77,10 +77,13 @@ bool hal_dma_finish_rx_i2c_device(void);
 bool hal_dma_finish_rx_i2c_device()
 {
 #if	SYS_MOCK_I2C
-	i2c_rx_len = 16;
-	uint8_t i;
-	for(i=0;i<i2c_rx_len;i++)
-		i2c_rx_data[i] = i+1;
+	static char rx_msg[]="MMC5603 I2C Sensor Data";
+#include <string.h>
+	i2c_rx_len = strlen(rx_msg);
+	strcpy((char *)i2c_rx_data,rx_msg);
+
+	extern int i2c_isr_enable;
+	i2c_isr_enable = 1;
 #endif
 	i2c_print("I2C finish to read %d bytes from device %02x\r\n",i2c_rx_len,i2c_rx_addr);
 	return true;	//success

@@ -30,7 +30,7 @@ void mrb_record(MRB *mrb)
 			continue;
 		mrb_table[i] = mrb;
 	}
-	mrb_print("Too many MRB/r/n");
+	mrb_print("Too many MRB\r\n");
 }
 #else
 #define mrb_print(x...)
@@ -98,7 +98,7 @@ void *mrb_pop_msg(MRB *mrb)
 	void *msg;
 	msg = mrb->messege[mrb->tail];
 	mrb_inc_tail(mrb);
-	mrb_print("MRB %x POP/r/n",(uint32_t)mrb);
+	mrb_print("MRB %x POP\r\n",(uint32_t)mrb);
 	return(msg);
 }
 void mrb_push_msg(MRB *mrb,void *msg);
@@ -109,7 +109,7 @@ void mrb_push_msg(MRB *mrb,void *msg)
 	if(mrb->messege == 0x0L)
 		return; //should not happen
 	mrb->messege[mrb->head] = msg;
-	mrb_print("MRB %x PUSH/r/n",(uint32_t)mrb);
+	mrb_print("MRB %x PUSH\r\n",(uint32_t)mrb);
 	mrb_inc_head(mrb);
 }
 /*------------------------------------*/
@@ -186,7 +186,7 @@ void *mrb_push_msg_drop(MRB *mrb,void *msg)
 	 if(mrb_is_full(mrb))
 	 {
 		 drop = mrb_pop_msg(mrb);
-		 mrb_print("MRB %x PUSH DROP/r/n",(uint32_t)mrb);
+		 mrb_print("MRB %x PUSH DROP\r\n",(uint32_t)mrb);
 	 }
 	 else
 	 {
@@ -194,7 +194,7 @@ void *mrb_push_msg_drop(MRB *mrb,void *msg)
 	 }
 
 	 mrb_push_msg(mrb,msg);
-	 mrb_print("MRB %x PUSH/r/n",(uint32_t)mrb);
+	 mrb_print("MRB %x PUSH\r\n",(uint32_t)mrb);
 	 return drop;	//The caller should be responsible to free drop
 }
 /*================================================================*/

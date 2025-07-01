@@ -14,22 +14,13 @@
 
 #include "1imp.h"
 /*================================================================*/
-#include "0ctr.h"
+#include "hal.h"
 void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_data, uint8_t length);
 void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_data, uint8_t length)
 {
-#if SYS_DEBUG_I2C
-	printf("OMMO HAL I2C Transfer CS:%d,Length:%d/r/n",address,length);
-#endif
-
-#if SYS_MOCK_I2C
-#include <string.h>
-	extern int i2c_isr_enable;
-	i2c_isr_enable = 1;
-	static uint8_t i2c_rx_data[16]={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-	if(rx_data!=0x0L)
-		memcpy(rx_data,i2c_rx_data,16);
-#endif
+	 hal_dma_start_tx_i2c_device(address, tx_data, length);
+	 hal_dma_start_rx_i2c_device(address, tx_data, rx_data, length);
+	 hal_dma_finish_rx_i2c_device();
 }
 /*------------------------------------*/
 
