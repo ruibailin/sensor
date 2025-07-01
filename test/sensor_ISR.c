@@ -19,10 +19,13 @@
 #include <stdbool.h>
 /*------------------------------------*/
 int timer_isr_enable=0;
+int timer_run_enable=1;
 void TIMER_ISR();
 void TIMER_ISR()
 {
 	if(timer_isr_enable == 0)
+		return;
+	if(timer_run_enable == 0)
 		return;
 	extern void bsp_loop_thread(void);
 	bsp_loop_thread();
@@ -33,10 +36,13 @@ void TIMER_ISR()
 }
 
 int i2c_isr_enable=0;
+int i2c_run_enable=1;
 void I2C_ISR(bool success);
 void I2C_ISR(bool success)
 {
 	if(i2c_isr_enable == 0)
+		return;
+	if(i2c_run_enable == 0)
 		return;
 	extern void soc_i2c_int_thread();
 	soc_i2c_int_thread();
@@ -44,10 +50,13 @@ void I2C_ISR(bool success)
 }
 
 int spi_isr_enable=0;
+int spi_run_enable=1;
 void SPI_ISR();
 void SPI_ISR()
 {
 	if(spi_isr_enable == 0)
+		return;
+	if(spi_run_enable == 0)
 		return;
 	extern void soc_spi_int_thread();
 	soc_spi_int_thread();
