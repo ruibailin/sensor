@@ -23,39 +23,19 @@
 #include <pthread.h>
 #include <sys/types.h>
 /*------------------------------------*/
-extern void TIMER_ISR(void);
-extern void I2C_ISR(bool success);
-extern void SPI_ISR(void);
-/*------------------------------------*/
-void *TIMER_ISR_pthread_entry(void *arg);
-void *TIMER_ISR_pthread_entry(void *arg)
+extern void sys_parse_input(char cmd);
+extern char sys_input_cmd;
+void *pthread_entry(void *arg);
+void *pthread_entry(void *arg)
 {
+	int cc;
+	char cmd;
 	while(1)
 	{
-		usleep(100000);		//delay 100ms
-		TIMER_ISR();
-	}
-	return 0x0L;
-}
-
-void *I2C_ISR_pthread_entry(void *arg);
-void *I2C_ISR_pthread_entry(void *arg)
-{
-	while(1)
-	{
-		usleep(100);		//delay 100us
-		I2C_ISR();
-	}
-	return 0x0L;
-}
-
-void *SPI_ISR_pthread_entry(void *arg);
-void *SPI_ISR_pthread_entry(void *arg)
-{
-	while(1)
-	{
-		usleep(100);		//delay 100us
-		SPI_ISR();
+		cc = getchar();
+		cmd = (char )cc;
+		sys_parse_input(cmd);
+		sys_input_cmd = cmd;
 	}
 	return 0x0L;
 }
@@ -65,15 +45,11 @@ void sys_init_test_thread()
 {
 	pthread_t tid;
 	int ret;
-	ret = pthread_create(&tid, (void *)0L, TIMER_ISR_pthread_entry, 0x0L);
+	ret = pthread_create(&tid, (void *)0L, pthread_entry, 0x0L);
 	if(ret == 0)
-		printf("Timer MOCK ISR created %d\r\n",tid);
-	ret = pthread_create(&tid, (void *)0L, I2C_ISR_pthread_entry, 0x0L);
-	if(ret == 0)
-		printf("I2C MOCK ISR created %d\r\n",tid);
-	ret = pthread_create(&tid, (void *)0L, SPI_ISR_pthread_entry, 0x0L);
-	if(ret == 0)
-		printf("SPI MOCK ISR created %d\r\n",tid);
+	{
+		printf("Key Input thread created\r\n");
+	}
 }
 /*================================================================*/
 #endif

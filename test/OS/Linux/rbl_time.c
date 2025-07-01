@@ -7,14 +7,15 @@
 
 
 #include "..\..\0ctr.h"
-#if SYS_OS_CYGWIN
+#if SYS_OS_LINUX
 /*================================================================*/
-extern unsigned int sys_ticks;
-/*------------------------------------*/
-unsigned int rbl_get_msec();
+#include <sys/time.h>
+unsigned int rbl_get_msec(void);
 unsigned int rbl_get_msec()
 {
-	return sys_ticks;
+	struct timeval current_time;
+	gettimeofday(&current_time, 0x0L);
+	return (unsigned int)(current_time.tv_usec/1000);
 }
 /*================================================================*/
 #endif
