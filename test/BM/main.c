@@ -34,17 +34,25 @@ unsigned int sys_loop=0;
 unsigned int sys_ticks=0;
 unsigned int sys_ms=0;
 #define MAX_LOOP_TIME_PER_MS	800000
+
+unsigned int speedup=1;
+unsigned int speeddown=1;
 int main(void)
 {
 	device_inserted_removed_callback = test_device_inserted_removed_callback;
 	data_read_callback = test_data_read_callback;
 	start_timer();
+	unsigned int speed;
+	speed = MAX_LOOP_TIME_PER_MS;
+	speed /= speeddown;
+	speed *= speedup;
 	while(1)
 	{
 		sys_loop++;
 		I2C_ISR(true);
 		SPI_ISR();
-		if(sys_loop<MAX_LOOP_TIME_PER_MS)
+
+		if(sys_loop<speed)
 			continue;
 		sys_loop=0;
 		sys_ticks++;
