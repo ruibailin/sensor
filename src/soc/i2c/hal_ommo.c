@@ -24,6 +24,8 @@ void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_data, uin
 
 #if SYS_MOCK_I2C
 #include <string.h>
+	extern int i2c_isr_enable;
+	i2c_isr_enable = 1;
 	static uint8_t i2c_rx_data[16]={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 	if(rx_data!=0x0L)
 		memcpy(rx_data,i2c_rx_data,16);
