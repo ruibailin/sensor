@@ -39,7 +39,7 @@ void test_data_read_callback(uint8_t port_num, uint8_t *data)
 {
 	printf("sensor data on port %d received!\r\n",port_num);
 	extern void rbl_log_hex(unsigned char *data, int size);
-	rbl_log_hex(data,16);
+	rbl_log_hex(data,24);
 }
 /*================================================================*/
 /* end of sensor_callback.c */

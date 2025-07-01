@@ -26,6 +26,8 @@
 /*------------------------------------*/
 extern void (*device_inserted_removed_callback)(uint8_t port_num, bool device_inserted);
 extern void (*data_read_callback)(uint8_t port_num, uint8_t *data);
+/*------------------------------------*/
+#define BSP_MAX_DATA_LENGTH			24
 /*================================================================*/
 #endif
 /* end of 1imp.h */

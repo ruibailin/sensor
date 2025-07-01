@@ -54,7 +54,7 @@ void bsp_spi_loop_thread()
 		if(cmd != 0x0L)
 		{
 			tos_set_timer(BSP_WAIT_SENSOR_MAX_TIME);
-			soc_spi_request_tx(bsp_sensor_config_table[port].addr_or_cs,cmd,16);
+			soc_spi_request_tx(bsp_sensor_config_table[port].addr_or_cs,cmd,BSP_MAX_DATA_LENGTH);
 			tos_set_state(BSP_SSR_ONLINE_WRITE);
 			bsp_spi_print("SPI Sensor %d Start Write\r\n",port);
 		}
@@ -72,7 +72,7 @@ void bsp_spi_loop_thread()
 			}
 
 			tos_set_timer(BSP_WAIT_SENSOR_MAX_TIME);
-			soc_spi_request_rx(bsp_sensor_config_table[port].addr_or_cs,bsp_sensor_config_table[port].data_area,bsp_sensor_config_table[port].data_area,16);
+			soc_spi_request_rx(bsp_sensor_config_table[port].addr_or_cs,bsp_sensor_config_table[port].data_area,bsp_sensor_config_table[port].data_area,BSP_MAX_DATA_LENGTH);
 			tos_set_state(BSP_SSR_ONLINE_READ);
 			bsp_spi_print("SPI Sensor %d Start Read\r\n",port);
 		}
@@ -147,7 +147,7 @@ void bsp_spi_loop_thread()
 			start_LSM6DSM_data_read(cs,bsp_sensor_config_table[port].data_area);
 		}
 		tos_set_timer(BSP_WAIT_SENSOR_MAX_TIME);
-		soc_spi_request_rx(bsp_sensor_config_table[port].addr_or_cs,bsp_sensor_config_table[port].data_area,bsp_sensor_config_table[port].data_area,16);
+		soc_spi_request_rx(bsp_sensor_config_table[port].addr_or_cs,bsp_sensor_config_table[port].data_area,bsp_sensor_config_table[port].data_area,BSP_MAX_DATA_LENGTH);
 		tos_set_state(BSP_SSR_ONLINE_READ);
 	}
 		break;
