@@ -37,6 +37,9 @@ typedef enum{
 	BSP_SSR_OFFLINE,
 	BSP_SSR_OFFLINE_TEST,
 }SPI_Machine_State;
+/*------------------------------------*/
+extern void (*device_inserted_removed_callback)(uint8_t port_num, bool device_inserted);
+extern void (*data_read_callback)(uint8_t port_num, uint8_t *data);
 /*================================================================*/
 #endif
 /* end of 1imp.h */

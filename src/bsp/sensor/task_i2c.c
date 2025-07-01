@@ -72,6 +72,7 @@ void bsp_i2c_loop_thread()
 		if(soc_i2c_is_rx_full())
 		{
 			soc_i2c_copy_rx_data(bsp_sensor_config_table[0].data_area);
+			data_read_callback(0,bsp_sensor_config_table[0].data_area);
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
 			bsp_i2c_print("I2C Sensor %d End Read/r/n",addr);
@@ -83,6 +84,7 @@ void bsp_i2c_loop_thread()
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_OFFLINE);
 			bsp_i2c_print("I2C Sensor %d OFFLINE/r/n",addr);
+			device_inserted_removed_callback(0,false);
 			break;
 		}
 	}
@@ -102,6 +104,7 @@ void bsp_i2c_loop_thread()
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_OFFLINE);
 			bsp_i2c_print("I2C Sensor %d OFFLINE/r/n",addr);
+			device_inserted_removed_callback(0,false);
 			break;
 		}
 	}
@@ -122,6 +125,7 @@ void bsp_i2c_loop_thread()
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
 			bsp_i2c_print("I2C Sensor %d ONLINE again/r/n",addr);
+			device_inserted_removed_callback(0,true);
 		}
 		else
 		{
