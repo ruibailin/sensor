@@ -1,7 +1,7 @@
 
 /*------------------------------------
- * read.c
- * Create:  2025-06-30
+ * write.c
+ * Create:  2025-07-01
  * Author:  Steve Rui
  *------------------------------------
  * Record:
@@ -14,12 +14,15 @@
 
 
 /*================================================================*/
-#include <stdio.h>
+static char tx_cmd[]="MMC5603 I2C Command Data";
 /*------------------------------------*/
-void start_MMC5603_data_read(uint8_t *buffer);
-void start_MMC5603_data_read(uint8_t *buffer)
+#include "..\..\msg_ring_buf.h"
+#include "..\configuration.h"
+void start_MMC5603_data_write(void);
+void start_MMC5603_data_write()
 {
-	printf("Start to Read MMC5603 I2C data\r\n");
+	mrb_push_msg(bsp_sensor_config_table[0].tx_messege_buf,tx_cmd);
+	printf("Start to Send MMC5603 Write Command\r\n");
 }
 /*================================================================*/
-/* end of read.c */
+/* end of write.c */

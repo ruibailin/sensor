@@ -17,6 +17,7 @@
 #ifndef BSP_SENSOR_DESCRIPTION_H_
 #define BSP_SENSOR_DESCRIPTION_H_
 /*================================================================*/
+#define BSP_MAX_SENSOR_MODEL 	3
 typedef struct{
 	uint32_t code;
 	uint8_t  name[32];

@@ -13,10 +13,17 @@
  */
 
 
-#include "1imp.h"
 #ifndef BSP_SENSOR_CONFIGURATION_H_
 #define BSP_SENSOR_CONFIGURATION_H_
 /*================================================================*/
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+/*------------------------------------*/
+#define BSP_MAX_SENSOR_PORT		5
+#define BSP_MAX_SENSOR_MODEL	3
+/*------------------------------------*/
 typedef enum{
 	BSP_NULL_SENSOR = 0,
 	BSP_I2C_SENSOR,
