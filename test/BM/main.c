@@ -33,6 +33,7 @@ extern void start_timer(void);
 unsigned int sys_loop=0;
 unsigned int sys_ticks=0;
 unsigned int sys_ms=0;
+#define MAX_LOOP_TIME_PER_MS	800000
 int main(void)
 {
 	device_inserted_removed_callback = test_device_inserted_removed_callback;
@@ -43,7 +44,7 @@ int main(void)
 		sys_loop++;
 		I2C_ISR(true);
 		SPI_ISR();
-		if(sys_loop<800000)
+		if(sys_loop<MAX_LOOP_TIME_PER_MS)
 			continue;
 		sys_loop=0;
 		sys_ticks++;
