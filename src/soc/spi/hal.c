@@ -86,7 +86,7 @@ bool hal_dma_finish_rx_spi_device()
 	extern int spi_isr_enable;
 	spi_isr_enable = 1;
 #endif
-	spi_print("SPI finish to read %d bytes from devicex\r\n",spi_rx_len);
+	spi_print("SPI finish to read %d bytes from device\r\n",spi_rx_len);
 	return true;	//success
 }
 
@@ -96,7 +96,8 @@ bool hal_dma_read_rx_spi_device(uint8_t *rx_data, uint8_t *rx_len)
 	*rx_len = spi_rx_len;
 	if(spi_rx_len == 0)
 		return false;	 //no data
-	spi_print("Application read %d bytes from SPI device\r\n",spi_rx_len);
+	extern uint8_t bsp_current_cs;
+	spi_print("Application read %d bytes from SPI device port %d\r\n",spi_rx_len,bsp_current_cs);
 	if(rx_data != 0x0L)
 		memcpy(rx_data,spi_rx_data,spi_rx_len);
 	//rx_data == 0x0L, only query

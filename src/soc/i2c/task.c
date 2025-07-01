@@ -49,7 +49,10 @@ void soc_i2c_request_rx(uint8_t address,uint8_t *cmd_data,uint8_t *rx_data, uint
 bool soc_i2c_is_rx_full(void);
 bool soc_i2c_is_rx_full()
 {
-	return (soc_i2c_rx_len != 0);
+	if(soc_i2c_cmd_len != 0)	//read not finished
+		return false;
+	else
+		return (soc_i2c_rx_len != 0);
 }
 #include "hal.h"
 #include "reg.h"
@@ -88,11 +91,16 @@ void soc_i2c_int_thread()
 		break;	//we should not go here
 	case I2C_TX_STATE:
 	{
+		if(soc_i2c_tx_len == 0)
+			break;			//should not happen
 		soc_i2c_tx_len = 0;	//transmission finished
 	}
 		break;
 	case I2C_RX_STATE:
 	{
+		if(soc_i2c_cmd_len == 0)
+			break;		//should not happen
+		soc_i2c_cmd_len = 0;
 		hal_dma_read_rx_i2c_device(soc_i2c_rx_addr,0x0L,&soc_i2c_rx_len);
 	}
 		break;

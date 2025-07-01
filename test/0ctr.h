@@ -16,7 +16,7 @@
 #ifndef TEST_0CTR_H_
 #define TEST_0CTR_H_
 /*================================================================*/
-#define SYS_TEST_IN_OS	1
+#define SYS_TEST_IN_OS	0
 /*------------------------------------*/
 #if SYS_TEST_IN_OS
 #define SYS_TEST_IN_BM	0

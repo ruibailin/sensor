@@ -97,7 +97,7 @@ bool hal_dma_read_rx_i2c_device(uint8_t address, uint8_t *rx_data, uint8_t *rx_l
 	*rx_len = i2c_rx_len;
 	if(i2c_rx_len == 0)
 		return false;	 //no data
-	i2c_print("Application read %d bytes from device %02x\r\n",i2c_rx_len,i2c_rx_addr);
+	i2c_print("Application read %d bytes from I2C device address %02x\r\n",i2c_rx_len,i2c_rx_addr);
 	if(rx_data != 0x0L)
 		memcpy(rx_data,i2c_rx_data,i2c_rx_len);
 	//rx_data == 0x0L, only query

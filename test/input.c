@@ -88,20 +88,20 @@ void sys_parse_input(char cmd)
 		break;
 	case '+':
 	{
-		printf("Speed Up Test!\r\n");
 		extern unsigned int speedup;
 		extern unsigned int speeddown;
 		speedup++;
 		speeddown=1;
+		printf("Speed Up Test!%d\r\n",speedup);
 	}
 		break;
 	case '-':
 	{
-		printf("Speed Down Test!\r\n");
 		extern unsigned int speedup;
 		extern unsigned int speeddown;
 		speedup=1;
 		speeddown++;
+		printf("Speed Down Test!%d\r\n",speeddown);
 	}
 		break;
 	case '\n':

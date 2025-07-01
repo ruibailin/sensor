@@ -29,6 +29,7 @@ typedef struct
 TOS_T_T	*tos_thread_timer[TOS_MAX_PAT_TYPE][TOS_MAX_PAT_NUM];
 /*------------------------------------*/
 #include <malloc.h>
+#include <string.h>
 /*------------------------------------*/
 void tos_set_timer(unsigned int ll);
 void tos_set_timer(unsigned int ll)
@@ -38,6 +39,7 @@ void tos_set_timer(unsigned int ll)
 	if(thread == 0x0L)
 	{
 		tos_thread_timer[tos_this_tid][tos_this_pid] = (TOS_T_T *)malloc(sizeof(TOS_T_T));
+		memset(tos_thread_timer[tos_this_tid][tos_this_pid],0,sizeof(TOS_T_T));
 		thread = tos_thread_timer[tos_this_tid][tos_this_pid];
 	}
 	thread->timer[0]=ll+rbl_get_msec();
@@ -61,6 +63,7 @@ void tos_set_timer_ex(int td,unsigned int ll)
 	if(thread == 0x0L)
 	{
 		tos_thread_timer[tos_this_tid][tos_this_pid] = (TOS_T_T *)malloc(sizeof(TOS_T_T));
+		memset(tos_thread_timer[tos_this_tid][tos_this_pid],0,sizeof(TOS_T_T));
 		thread = tos_thread_timer[tos_this_tid][tos_this_pid];
 	}
 	thread->timer[td]=ll+rbl_get_msec();

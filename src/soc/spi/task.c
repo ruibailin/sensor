@@ -48,7 +48,10 @@ void soc_spi_request_rx(uint8_t address,uint8_t *cmd_data,uint8_t *rx_data, uint
 bool soc_spi_is_rx_full(void);
 bool soc_spi_is_rx_full()
 {
-	return (soc_spi_rx_len != 0);
+	if(soc_spi_cmd_len != 0)	//read not finished
+		return false;
+	else
+		return (soc_spi_rx_len != 0);
 }
 #include "hal.h"
 #include "reg.h"
@@ -76,7 +79,7 @@ typedef enum{
 void soc_spi_int_thread();
 void soc_spi_int_thread()
 {
-	tos_set_pno(SOC_I2C_TASK_PNO);
+	tos_set_pno(SOC_SPI_TASK_PNO);
 	int ss;
 	ss = tos_get_state();
 	switch(ss)
@@ -87,11 +90,16 @@ void soc_spi_int_thread()
 		break;	//we should not go here
 	case SPI_TX_STATE:
 	{
+		if(soc_spi_tx_len == 0)
+			break;			//should not happen
 		soc_spi_tx_len = 0;	//transmission finished
 	}
 		break;
 	case SPI_RX_STATE:
 	{
+		if(soc_spi_cmd_len == 0)
+			break;		//should not happen
+		soc_spi_cmd_len = 0;
 		hal_dma_read_rx_spi_device(0x0L,&soc_spi_rx_len);
 	}
 		break;
