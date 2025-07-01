@@ -63,7 +63,8 @@ uint8_t soc_spi_copy_rx_data(uint8_t *rx_data)
 #include "tos.h"
 /*------------------------------------*/
 typedef enum{
-	SPI_IDLE_STATE = 0,
+	SPI_INIT_STATE = 0,
+	SPI_IDLE_STATE,
 	SPI_TX_STATE,
 	SPI_RX_STATE,
 	SPI_TX_ERROR,
@@ -78,6 +79,8 @@ void soc_spi_int_thread()
 	ss = tos_get_state();
 	switch(ss)
 	{
+	case SPI_INIT_STATE:
+		break;
 	case SPI_IDLE_STATE:
 		break;	//we should not go here
 	case SPI_TX_STATE:
@@ -103,6 +106,7 @@ void soc_spi_int_thread()
 #include "0ctr.h"
 #define SOC_SPI_TX_TIME_OUT		300
 #define SOC_SPI_RX_TIME_OUT		500
+#include "..\gpio\chipselection.h"
 void soc_spi_loop_thread();
 void soc_spi_loop_thread()
 {
@@ -111,6 +115,13 @@ void soc_spi_loop_thread()
 	ss = tos_get_state();
 	switch(ss)
 	{
+	case SPI_INIT_STATE:
+	{
+		reg_init_spi_bus();
+		soc_init_cs();
+		tos_set_state(SPI_IDLE_STATE);
+	}
+		break;
 	case SPI_IDLE_STATE:
 	{
 		if(soc_spi_tx_len!=0)

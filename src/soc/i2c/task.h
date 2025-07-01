@@ -13,10 +13,11 @@
  */
 
 
-#include "1imp.h"
 #ifndef SOC_I2C_TASK_H_
 #define SOC_I2C_TASK_H_
 /*================================================================*/
+#include <stdint.h>
+#include <stdbool.h>
 extern bool soc_i2c_is_tx_idle(void);
 extern void soc_i2c_request_tx(uint8_t address,uint8_t *tx_data, uint8_t tx_len);
 /*------------------------------------*/

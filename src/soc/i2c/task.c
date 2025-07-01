@@ -64,7 +64,8 @@ uint8_t soc_i2c_copy_rx_data(uint8_t *rx_data)
 #include "tos.h"
 /*------------------------------------*/
 typedef enum{
-	I2C_IDLE_STATE = 0,
+	I2C_INIT_STATE = 0,
+	I2C_IDLE_STATE,
 	I2C_TX_STATE,
 	I2C_RX_STATE,
 	I2C_TX_ERROR,
@@ -79,6 +80,8 @@ void soc_i2c_int_thread()
 	ss = tos_get_state();
 	switch(ss)
 	{
+	case I2C_INIT_STATE:
+		break;
 	case I2C_IDLE_STATE:
 		break;	//we should not go here
 	case I2C_TX_STATE:
@@ -112,6 +115,12 @@ void soc_i2c_loop_thread()
 	ss = tos_get_state();
 	switch(ss)
 	{
+	case I2C_INIT_STATE:
+	{
+		reg_init_i2c_bus();
+		tos_set_state(I2C_IDLE_STATE);
+	}
+		break;
 	case I2C_IDLE_STATE:
 	{
 		if(soc_i2c_tx_len!=0)

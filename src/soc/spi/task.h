@@ -13,10 +13,11 @@
  */
 
 
-#include "1imp.h"
 #ifndef SOC_SPI_TASK_H_
 #define SOC_SPI_TASK_H_
 /*================================================================*/
+#include <stdint.h>
+#include <stdbool.h>
 extern bool soc_spi_is_tx_idle(void);
 extern void soc_spi_request_tx(uint8_t address,uint8_t *tx_data, uint8_t tx_len);
 /*------------------------------------*/
