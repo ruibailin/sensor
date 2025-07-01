@@ -13,12 +13,13 @@
  */
 
 
-#ifndef SOC_H_
-#define SOC_H_
+#ifndef SRC_SOC_H_
+#define SRC_SOC_H_
 /*================================================================*/
-#include "soc\soc.h"
+#include "soc\gpio\chipselection.h"
 /*------------------------------------*/
-
+#include "soc\i2c\task.h"
+#include "soc\spi\task.h"
 /*================================================================*/
 #endif
 /* end of soc.h */
