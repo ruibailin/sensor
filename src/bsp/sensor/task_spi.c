@@ -87,6 +87,20 @@ void bsp_spi_loop_thread()
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
 			bsp_spi_print("SPI Sensor %d End Read\r\n",port);
+#if SYS_WRITE_SENSOR
+			if(port == 1)
+			{
+				printf("Test Sensor on port 1!\r\n");
+				extern void start_MMC5983_data_write(void);
+				start_MMC5983_data_write();
+			}
+			if(port == 3)
+			{
+				printf("Test Sensor on port 3!\r\n");
+				extern void start_LSM6DSM_data_write(void);
+				start_LSM6DSM_data_write();
+			}
+#endif
 		}
 		else
 		{

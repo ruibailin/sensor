@@ -76,6 +76,11 @@ void bsp_i2c_loop_thread()
 			tos_set_timer(BSP_READ_SENSOR_INTERVAL);
 			tos_set_state(BSP_SSR_ONLINE);
 			bsp_i2c_print("I2C Sensor %d End Read\r\n",addr);
+#if SYS_WRITE_SENSOR
+			printf("Test Sensor on port 0!\r\n");
+			extern void start_MMC5603_data_write(void);
+			start_MMC5603_data_write();
+#endif
 		}
 		else
 		{
