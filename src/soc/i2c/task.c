@@ -116,6 +116,7 @@ void soc_i2c_int_thread()
 
 /*------------------------------------*/
 #include "0ctr.h"
+#define SOC_I2C_TX_INTERVAL		100
 #define SOC_I2C_TX_TIME_OUT		300
 #define SOC_I2C_RX_TIME_OUT		500
 void soc_i2c_loop_thread();
@@ -130,10 +131,13 @@ void soc_i2c_loop_thread()
 	{
 		reg_init_i2c_bus();
 		tos_set_state(I2C_IDLE_STATE);
+		tos_set_timer(SOC_I2C_TX_INTERVAL);
 	}
 		break;
 	case I2C_IDLE_STATE:
 	{
+		if(!tos_check_timer())
+			break;
 		if(soc_i2c_tx_len!=0)
 		{
 #if I2C_USE_SYS_HAL
@@ -158,6 +162,8 @@ extern void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_da
 			 tos_set_state(I2C_RX_STATE);
 			 break;
 		}
+		tos_set_state(I2C_IDLE_STATE);
+		tos_set_timer(SOC_I2C_TX_INTERVAL);
 	}
 		break;
 	case I2C_TX_STATE:
@@ -165,7 +171,7 @@ extern void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_da
 		if(soc_i2c_tx_len == 0)
 		{
 			tos_set_state(I2C_IDLE_STATE);
-			tos_clr_timer();
+			tos_set_timer(SOC_I2C_TX_INTERVAL);
 			break;
 		}
 		if(!tos_check_timer())
@@ -178,13 +184,13 @@ extern void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_da
 		if(soc_i2c_cmd_len == 0)
 		{
 			tos_set_state(I2C_IDLE_STATE);
-			tos_clr_timer();
+			tos_set_timer(SOC_I2C_TX_INTERVAL);
 			break;
 		}
 		if(soc_i2c_rx_len != 0)
 		{
 			tos_set_state(I2C_IDLE_STATE);
-			tos_clr_timer();
+			tos_set_timer(SOC_I2C_TX_INTERVAL);
 			break;
 		}
 		if(!tos_check_timer())

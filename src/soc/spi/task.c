@@ -115,6 +115,7 @@ void soc_spi_int_thread()
 
 /*------------------------------------*/
 #include "0ctr.h"
+#define SOC_SPI_TX_INTERVAL		100
 #define SOC_SPI_TX_TIME_OUT		300
 #define SOC_SPI_RX_TIME_OUT		500
 #include "..\gpio\chipselection.h"
@@ -131,6 +132,7 @@ void soc_spi_loop_thread()
 		reg_init_spi_bus();
 		soc_init_cs();
 		tos_set_state(SPI_IDLE_STATE);
+		tos_set_timer(SOC_SPI_TX_INTERVAL);
 	}
 		break;
 	case SPI_IDLE_STATE:
@@ -162,6 +164,8 @@ extern void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *r
 			 tos_set_state(SPI_RX_STATE);
 			 break;
 		}
+		tos_set_state(SPI_IDLE_STATE);
+		tos_set_timer(SOC_SPI_TX_INTERVAL);
 	}
 		break;
 	case SPI_TX_STATE:
@@ -169,7 +173,7 @@ extern void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *r
 		if(soc_spi_tx_len == 0)
 		{
 			tos_set_state(SPI_IDLE_STATE);
-			tos_clr_timer();
+			tos_set_timer(SOC_SPI_TX_INTERVAL);
 			break;
 		}
 		if(!tos_check_timer())
@@ -182,13 +186,13 @@ extern void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *r
 		if(soc_spi_cmd_len == 0)
 		{
 			tos_set_state(SPI_IDLE_STATE);
-			tos_clr_timer();
+			tos_set_timer(SOC_SPI_TX_INTERVAL);
 			break;
 		}
 		if(soc_spi_rx_len != 0)
 		{
 			tos_set_state(SPI_IDLE_STATE);
-			tos_clr_timer();
+			tos_set_timer(SOC_SPI_TX_INTERVAL);
 			break;
 		}
 		if(!tos_check_timer())
