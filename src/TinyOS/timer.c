@@ -38,7 +38,8 @@ void tos_set_timer(unsigned int ll)
 {
 	ll /= speedup_t;
 	ll *= speeddown_t;
-	ll += 1;
+	if(ll==0)
+		ll = 1;
 	TOS_T_T *thread;
 	thread =tos_thread_timer[tos_this_tid][tos_this_pid];
 	if(thread == 0x0L)
@@ -61,6 +62,10 @@ void tos_clr_timer()
 void tos_set_timer_ex(int td,unsigned int ll);
 void tos_set_timer_ex(int td,unsigned int ll)
 {
+	ll /= speedup_t;
+	ll *= speeddown_t;
+	if(ll==0)
+		ll = 1;
 	if(td>=TOS_PROC_MAX_TIMER_NUM)
 		return;
 	TOS_T_T *thread;
