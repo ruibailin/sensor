@@ -10,22 +10,28 @@
 #if SYS_OS_LINUX
 /*================================================================*/
 #include <sys/time.h>
-static unsigned int old = 0;
+static suseconds_t	old_us = 0;
+time_t		old_s = 0;
 unsigned int rbl_get_msec(void);
 unsigned int rbl_get_msec()
 {
 	struct timeval current_time;
 	gettimeofday(&current_time, 0x0L);
-	unsigned int now;
-	now = (unsigned int)(current_time.tv_usec/1000);
-	if(old == 0)
+	unsigned int ms;
+	if(old_s == 0)
 	{
-		old = now;
+		old_us = current_time.tv_sec;
+		old_s = current_time.tv_sec;
 		return 0;
 	}
 	else
 	{
-		return now-old;
+		if(old_s<current_time.tv_sec)
+			ms = (current_time.tv_sec-old_s)/1000;
+		else
+			ms = (1000000+current_time.tv_sec-old_s)/1000;
+		ms += (current_time.tv_sec-old_s)*1000;
+		return ms;
 	}
 }
 /*================================================================*/

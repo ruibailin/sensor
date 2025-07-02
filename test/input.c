@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "0ctr.h"
 /*================================================================*/
 void sys_parse_input(char cmd);
 void sys_parse_input(char cmd)
@@ -88,20 +89,37 @@ void sys_parse_input(char cmd)
 		break;
 	case '+':
 	{
+#if SYS_OS_CYGWIN
 		extern unsigned int speedup;
 		extern unsigned int speeddown;
 		speedup++;
 		speeddown=1;
 		printf("Speed Up Test!%d\r\n",speedup);
+#else
+		extern unsigned int speedup_t;
+		extern unsigned int speeddown_t;
+		speedup_t++;
+		speeddown_t=1;
+		printf("Speed Up Test!%d\r\n",speedup_t);
+#endif
+
 	}
 		break;
 	case '-':
 	{
+#if SYS_OS_CYGWIN
 		extern unsigned int speedup;
 		extern unsigned int speeddown;
 		speedup=1;
 		speeddown++;
 		printf("Speed Down Test!%d\r\n",speeddown);
+#else
+		extern unsigned int speedup_t;
+		extern unsigned int speeddown_t;
+		speedup_t=1;
+		speeddown_t++;
+		printf("Speed Down Test!%d\r\n",speeddown_t);
+#endif
 	}
 		break;
 	case '\n':

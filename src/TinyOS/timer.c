@@ -31,9 +31,14 @@ TOS_T_T	*tos_thread_timer[TOS_MAX_PAT_TYPE][TOS_MAX_PAT_NUM];
 #include <malloc.h>
 #include <string.h>
 /*------------------------------------*/
+unsigned int speedup_t=1;
+unsigned int speeddown_t=1;
 void tos_set_timer(unsigned int ll);
 void tos_set_timer(unsigned int ll)
 {
+	ll /= speedup_t;
+	ll *= speeddown_t;
+	ll += 1;
 	TOS_T_T *thread;
 	thread =tos_thread_timer[tos_this_tid][tos_this_pid];
 	if(thread == 0x0L)
@@ -83,7 +88,6 @@ int tos_check_timer()
 	thread = tos_thread_timer[tos_this_tid][tos_this_pid];
 	if(thread == 0x0L)
 		return 0;
-
 	int i;
 	for(i=0;i<TOS_PROC_MAX_TIMER_NUM;i++)
 	{

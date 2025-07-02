@@ -20,8 +20,8 @@
 /*------------------------------------*/
 #if SYS_TEST_IN_OS
 #define SYS_TEST_IN_BM	0
-#define SYS_OS_CYGWIN	1
-#define SYS_OS_LINUX	0
+#define SYS_OS_CYGWIN	0
+#define SYS_OS_LINUX	1
 #define SYS_OS_WINDOW	0
 #else
 #define SYS_TEST_IN_BM	1

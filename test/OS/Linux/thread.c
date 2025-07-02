@@ -32,7 +32,7 @@ void *TIMER_ISR_pthread_entry(void *arg)
 {
 	while(1)
 	{
-		usleep(100000);		//delay 100ms
+		usleep(1000);		//delay 100ms
 		TIMER_ISR();
 	}
 	return 0x0L;
@@ -60,6 +60,25 @@ void *SPI_ISR_pthread_entry(void *arg)
 	return 0x0L;
 }
 /*------------------------------------*/
+extern char sys_input_cmd;
+extern void sys_parse_input(char cmd);
+void *input_pthread_entry(void *arg);
+void *input_pthread_entry(void *arg)
+{
+	int cc;
+	char cmd;
+	cc = 0;
+	while(1)
+	{
+		usleep(100);		//delay 100us
+		cc = getchar();
+		cmd = (char )cc;
+		sys_parse_input(cmd);
+		sys_input_cmd = cmd;
+	}
+	return 0x0L;
+}
+/*------------------------------------*/
 void sys_init_test_thread(void);
 void sys_init_test_thread()
 {
@@ -69,6 +88,7 @@ void sys_init_test_thread()
 
 	pthread_t tid;
 	int ret;
+	ret = 0;
 	ret = pthread_create(&tid, (void *)0L, TIMER_ISR_pthread_entry, 0x0L);
 	if(ret == 0)
 	{
@@ -83,6 +103,11 @@ void sys_init_test_thread()
 	if(ret == 0)
 	{
 		printf("SPI MOCK ISR created\r\n");
+	}
+	ret = pthread_create(&tid, (void *)0L, input_pthread_entry, 0x0L);
+	if(ret == 0)
+	{
+		printf("Key Input Thread created\r\n");
 	}
 }
 /*================================================================*/

@@ -27,10 +27,11 @@ extern void test_data_read_callback(uint8_t port_num, uint8_t *data);
 /*------------------------------------*/
 extern void start_timer(void);
 extern void sys_init_test_thread(void);
+extern void sys_init_term(void);
 extern void sys_print_usage();
-extern void sys_parse_input(char cmd);
 unsigned int speedup=1;
 unsigned int speeddown=1;
+char sys_input_cmd;
 /*------------------------------------*/
 int main(int argc, char **argv)
 {
@@ -38,17 +39,15 @@ int main(int argc, char **argv)
 	data_read_callback = test_data_read_callback;
 	start_timer();
 	sys_print_usage();
+	sys_init_term();
 	sys_init_test_thread();
-	int cc;
-	char cmd;
 	while(1)
 	{
-		cc = getchar();
-		cmd = (char )cc;
-		if(cmd == 'q')
+		if(sys_input_cmd == 'q')
 			break;
-		sys_parse_input(cmd);
 	}
+	extern void sys_restore_term(void);
+	sys_restore_term();
 	return EXIT_SUCCESS;
 }
 /*================================================================*/
