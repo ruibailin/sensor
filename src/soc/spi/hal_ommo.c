@@ -21,6 +21,9 @@ void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *rx_data,
 {
 	 hal_dma_start_tx_spi_device(tx_data, length);
 	 hal_dma_start_rx_spi_device(tx_data, rx_data, length);
+	 extern int spi_run_enable;
+	 if(spi_run_enable != 1)
+		 return;	//no conncetion
 	 hal_dma_finish_rx_spi_device();
 }
 /*------------------------------------*/
