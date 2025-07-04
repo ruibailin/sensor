@@ -204,6 +204,7 @@ extern void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *r
 	{
 		hal_dma_init_spi_bus();
 		soc_spi_tx_len = 0;
+		tos_set_state(SPI_INIT_STATE);
 	}
 		break;
 	case SPI_RX_ERROR:
@@ -211,6 +212,7 @@ extern void start_spi_transfer(uint8_t chip_select, uint8_t *tx_data, uint8_t *r
 		hal_dma_init_spi_bus();
 		soc_spi_rx_len = 0;
 		soc_spi_cmd_len = 0;
+		tos_set_state(SPI_INIT_STATE);
 	}
 		break;
 	default:
