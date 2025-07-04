@@ -202,6 +202,7 @@ extern void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_da
 	{
 		hal_dma_init_i2c_bus();
 		soc_i2c_tx_len = 0;
+		tos_set_state(I2C_INIT_STATE);
 	}
 		break;
 	case I2C_RX_ERROR:
@@ -209,6 +210,7 @@ extern void start_i2c_transfer(uint8_t address, uint8_t *tx_data, uint8_t *rx_da
 		hal_dma_init_i2c_bus();
 		soc_i2c_rx_len = 0;
 		soc_i2c_cmd_len = 0;
+		tos_set_state(I2C_INIT_STATE);
 	}
 		break;
 	default:
